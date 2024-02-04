@@ -19,9 +19,16 @@ func main() {
 	collector.OnHTML(".quote", func(element *colly.HTMLElement) {
 		//Extract data from HTML elements
 		quote := element.ChildText("span.text")
+		author := element.ChildText("small.author")
+		tags := element.ChildText("div.tags")
 
 		quote = strings.TrimSpace(quote)
-		fmt.Println(quote)
+		author = strings.TrimSpace(author)
+		tags = strings.TrimSpace(tags)
+
+		fmt.Printf("Quote: %v \n Author: %s \n Tags: %s \n\n", quote, author, tags)
+		fmt.Println("-----------------------------------------------------------------")
+
 	})
 
 	err := collector.Visit(url)
